@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Todo App</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<style>
+    .container {
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+h1 {
+	text-align: center;
+}
+
+form {
+	display: flex;
+	margin-bottom: 20px;
+}
+
+input[type="text"] {
+	flex: 1;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+	background-color: #333;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+li {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.todo-text {
+	flex: 1;
+	padding: 10px;
+	background-color: #f5f5f5;
+	border-radius: 5px;
+}
+
+.delete-btn {
+	background-color: #ff0000;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+</style>
+<body>
+	<div class="container">
+		<h1>Todo App</h1>
+		<form id="todo-form">
+			<input type="text" id="todo-input" placeholder="Add a todo">
+			<button type="submit">Add</button>
+		</form>
+		<ul id="todo-list">
+			<!-- todo items will be added here dynamically -->
+		</ul>
+	</div>
+	<script src="app.js"></script>
+</body>
+<script>
+    const todoForm = document.querySelector('#todo-form');
+const todoInput = document.querySelector('#todo-input');
+const todoList = document.querySelector('#todo-list');
+
+// function to add a new todo item
+function addTodoItem(event) {
+	event.preventDefault();
+	const todoText = todoInput.value.trim();
+	if (todoText.length === 0) return;
+	const li = document.createElement('li');
+	const todoTextSpan = document.createElement('span');
+	todoTextSpan.textContent = todoText;
+	todoTextSpan.classList.add('todo-text');
+	const deleteBtn = document.createElement('button');
+	deleteBtn.textContent = 'Delete';
+	deleteBtn.classList.add('delete-btn');
+	deleteBtn.addEventListener('click', () => {
+		li.remove();
+	});
+	li.appendChild(todoTextSpan);
+	li.appendChild(deleteBtn);
+	todoList.appendChild(li);
+	todoInput.value = '';
+}
+
+todoForm.addEventListener('submit', addTodoItem);
+
+</script>
+</html>
